@@ -56,7 +56,7 @@ export default async function Footer() {
             {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
           </p>
           <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>Tamarly store</p>
+          <p>Tamarly Store</p>
           <p className="md:ml-auto">
             <a href="https://vercel.com" className="text-black dark:text-white"></a>
           </p>
