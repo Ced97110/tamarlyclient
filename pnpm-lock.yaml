@@ -17,6 +17,9 @@ dependencies:
   geist:
     specifier: ^1.0.0
     version: 1.0.0
+  lucide:
+    specifier: ^0.295.0
+    version: 0.295.0
   next:
     specifier: 14.0.0
     version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -2139,6 +2142,10 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lucide@0.295.0:
+    resolution: {integrity: sha512-RobxabiZe704jFbxSvo07Ed0mzKpm+bq6vWgegsWfQsYNqK19WLJcg+hNoRMI2qrS1D3akutwl4flOnaeLrm2Q==}
+    dev: false
 
   /merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}

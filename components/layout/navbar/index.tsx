@@ -11,6 +11,7 @@ const { SITE_NAME } = process.env;
 import Image from 'next/image';
 
 export default async function Navbar() {
+
   const menu = await getMenu('next-js-frontend-header-menu');
 
   return (
