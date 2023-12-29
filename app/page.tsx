@@ -26,9 +26,9 @@ export const metadata = {
        <Hero/>
         <Suspense>
           <Carousel title='New release'/>
-          <GridBlog/>
-          <BestSelling/>
         </Suspense>
+         <GridBlog/>
+        <BestSelling/>
        
     </>
   );
