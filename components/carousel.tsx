@@ -7,7 +7,7 @@ export async function Carousel({title}:{title?:string}) {
 
   const products = await getCollectionProducts({ collection: 'new-releases' });
 
-  console.log(products);
+ 
 
   if (!products?.length) return null;
 
@@ -15,12 +15,13 @@ export async function Carousel({title}:{title?:string}) {
   const carouselProducts = [...products, ...products, ...products];
 
   return (
-    <div className=" w-full overflow-x-auto pb-6 pt-4">
-      <div>
-        <h2 className='text-xl text-center py-4  font-semibold'>
+    <>
+     <div>
+        <h2 className='text-3xl text-center py-4 pb-4  font-semibold'>
           {title}
         </h2>
       </div>
+    <div className=" w-full overflow-x-auto pb-6 pt-4">
       <ul className="flex animate-carousel gap-4">
         {carouselProducts.map((product, i) => (
           <li
@@ -44,5 +45,6 @@ export async function Carousel({title}:{title?:string}) {
         ))}
       </ul>
     </div>
+    </>
   );
 }

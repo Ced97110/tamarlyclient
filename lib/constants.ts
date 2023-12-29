@@ -23,9 +23,14 @@ export const sorting: SortFilterItem[] = [
 export const TAGS = {
   collections: 'collections',
   products: 'products',
-  cart: 'cart'
+  cart: 'cart',
+  blog:'blog'
 };
+
+const collection = 296627732646
 
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
 export const SHOPIFY_GRAPHQL_API_ENDPOINT = '/api/2023-10/graphql.json';
+export const SHOPIFY_REST_API_LIST_ARTICLE_ENDPOINT = `/admin/api/2023-10/blogs/85642608806/articles.json`;
+export const SHOPIFY_REST_API_SINGLE_ARTICLE_ENDPOINT = `/admin/api/2023-10/blogs/85642608806/articles/`;

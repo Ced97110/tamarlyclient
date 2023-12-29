@@ -1,8 +1,13 @@
+import BestSelling from 'components/best-selling/best-grid';
+import GridBlog from 'components/blog/grid-blog';
 import { Carousel } from 'components/carousel';
+import CarouselHero from 'components/carousel-hero';
 import { ThreeItemGrid } from 'components/grid/three-items';
-import HeroSection from 'components/hero';
+import Hero from 'components/hero-section';
 import Footer from 'components/layout/footer';
+
 import { Suspense } from 'react';
+
 
 export const runtime = 'edge';
 
@@ -13,17 +18,21 @@ export const metadata = {
   }
 };
 
-export default async function HomePage() {
+ async function HomePage(){
+
+   
   return (
     <>
-      <HeroSection/>
-      <ThreeItemGrid />
-      <Suspense>
-        <Carousel title='New release'/>
+       <Hero/>
         <Suspense>
-          <Footer />
+          <Carousel title='New release'/>
+          <GridBlog/>
+          <BestSelling/>
         </Suspense>
-      </Suspense>
+       
     </>
   );
 }
+
+
+export default HomePage;

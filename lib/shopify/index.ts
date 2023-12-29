@@ -1,4 +1,4 @@
-import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, SHOPIFY_REST_API_LIST_ARTICLE_ENDPOINT, SHOPIFY_REST_API_SINGLE_ARTICLE_ENDPOINT, TAGS } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
@@ -32,6 +32,9 @@ import {
   Page,
   Product,
   ShopifyAddToCartOperation,
+  ShopifyArticle,
+  ShopifyArticleOperation,
+  ShopifyArticlesOperation,
   ShopifyCart,
   ShopifyCartOperation,
   ShopifyCollection,
@@ -50,13 +53,125 @@ import {
   ShopifyUpdateCartOperation
 } from './types';
 
+
+
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
   : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
+const endpointStorefront = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
+
+
+const endpointListArticle = `${domain}${SHOPIFY_REST_API_LIST_ARTICLE_ENDPOINT}`;
+
+const endpointSingleArticle = `${domain}${SHOPIFY_REST_API_SINGLE_ARTICLE_ENDPOINT}`;
+
+const adminkey = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN!
+
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
+
+
+
+
+export async function shopifyFetchApi<T>({
+  cache = 'no-store',
+  headers,
+  url
+}:{
+  cache?: RequestCache;
+  headers?:HeadersInit;
+  id?:string,
+  url:string
+}):Promise<{ body: T } | never> {
+
+   try {
+     
+     const result = await fetch(url,{
+      method:"GET",
+      headers:{
+         'Content-Type': 'application/json',
+         'X-Shopify-Access-Token': adminkey,
+        ...headers
+      },
+      cache:'no-store'
+     })
+
+     const body = await result.json();
+
+     if(body.errors){
+      throw body.errors[0]
+     }
+
+    return {
+      body
+    }
+
+   }catch(e){
+
+     if (isShopifyError(e)) {
+      throw {
+        cause: e.cause?.toString() || 'unknown',
+        status: e.status || 500,
+        message: e.message,
+        
+      };
+    }
+
+    throw {
+      error: e,
+     
+    };
+
+   }
+
+}
+
+
+
+
+
+export async function getArticle(id:string): Promise<ShopifyArticle> {
+    const response = await shopifyFetchApi<ShopifyArticleOperation>({
+      cache : 'no-store',
+      url: `${endpointSingleArticle}${id}.json`
+    })
+    
+ 
+
+  
+
+    if (!response) {
+      console.log(`No blog found`);
+    }
+    
+    return response.body.article
+
+}
+
+
+
+export async function getArticles(): Promise<ShopifyArticle[]> {
+    const response = await shopifyFetchApi<ShopifyArticlesOperation>({
+      cache: 'no-store',
+      url: endpointListArticle
+    })
+    
+   
+     console.log("la reponse",response)
+  
+
+    if (!response) {
+      console.log(`No blog found`);
+      return [];
+    }
+    
+    return response.body.articles
+
+}
+
+
+
 
 export async function shopifyFetch<T>({
   cache = 'force-cache',
@@ -71,8 +186,10 @@ export async function shopifyFetch<T>({
   tags?: string[];
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
+
   try {
-    const result = await fetch(endpoint, {
+    
+    const result = await fetch(endpointStorefront, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -97,6 +214,7 @@ export async function shopifyFetch<T>({
       status: result.status,
       body
     };
+
   } catch (e) {
     if (isShopifyError(e)) {
       throw {
@@ -300,11 +418,19 @@ export async function getCollectionProducts({
       sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
     }
   });
+   
+  console.log("res",res)
 
   if (!res.body.data.collection) {
     console.log(`No collection found for \`${collection}\``);
     return [];
   }
+
+
+
+ 
+
+
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
 }
