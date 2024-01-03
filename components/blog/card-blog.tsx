@@ -12,6 +12,7 @@ interface CardBlogProps {
 
 function CardBlog({ id,title, summary, ...props }: CardBlogProps & React.ComponentProps<typeof Image>) {
 
+
   return (
 
       
@@ -33,6 +34,7 @@ function CardBlog({ id,title, summary, ...props }: CardBlogProps & React.Compone
             </div>
           </div>
         </div>
+      
       
   );
 }

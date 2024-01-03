@@ -174,7 +174,7 @@ export async function getArticles(): Promise<ShopifyArticle[]> {
 
 
 export async function shopifyFetch<T>({
-  cache = 'force-cache',
+  cache = 'no-store',
   headers,
   query,
   tags,
