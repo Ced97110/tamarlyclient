@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { getArticles } from 'lib/shopify';
 import CardBlog from './card-blog';
 import Link from 'next/link';
 
 async function GridBlog() {
+
   const article = await getArticles();
 
   if (!article?.length) return null;
@@ -18,6 +20,7 @@ async function GridBlog() {
             Latest Articles
           </h2>
         </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-x-10 xl:grid-cols-3 gap-y-10 gap-x-1">
           {article.map((article) => (
             <Link href={`/article/${article.id}`} key={article.id} className="relative h-full w-full">

@@ -11,17 +11,19 @@ const CarouselHero =  () => {
      <>
         <div id="default-carousel" className="relative bg-slate-800" data-carousel="static">
                 {/* <!-- Carousel wrapper --> */}
-            <div className="relative h-52 md:h-64 xl:h-[400px]">
+            <div className="relative h-52 md:h-64 xl:h-[571px] max-w-screen-full overflow-hidden">
                 {/* <!-- Item 1 -->*/}
             
 
                 <div className="duration-700 ease-in-out" data-carousel-item>
-                   <span className="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
-                    <Image  className="block absolute top-1/2 left-1/2 aspect-square" 
+                  
+                    <Image  className="absolute top-1/2 left-1/2 aspect-square" 
                       src='/image.png'
                       alt='logo'
                       fill
-                      sizes='(min-width:768px) 23vw,100vw,  (min-width:1024px) 66vw,100vw'
+                      priority={true}
+                      sizes='(min-width:768px) 23vw,100vw (min-width:1024px) 55vw 100vw'
+                      objectFit='cover'
                       
                     />
                  </div>

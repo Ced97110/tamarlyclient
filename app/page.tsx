@@ -6,8 +6,8 @@ import { ThreeItemGrid } from 'components/grid/three-items';
 import Hero from 'components/hero-section';
 import Footer from 'components/layout/footer';
 
-import { Suspense } from 'react';
 
+import { Suspense } from 'react';
 
 export const runtime = 'edge';
 
@@ -17,6 +17,7 @@ export const metadata = {
     type: 'website'
   }
 };
+
 
  async function HomePage(){
 
