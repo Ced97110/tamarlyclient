@@ -12,7 +12,7 @@ export const Hero = () => {
   return (
      <>
       <section className='max-w-screen-2xl pb-4 max-h-screen'>
-         <CarouselHero/>
+         <CarouselHero image='/image.png'/>
       </section>
          
      </>

@@ -4,25 +4,24 @@ import Image from 'next/image'
 
 
 
-const CarouselHero =  () => {
+const CarouselHero = ({image}:{image:string}) => {
 
   return (
 
      <>
         <div id="default-carousel" className="relative bg-slate-800" data-carousel="static">
                 {/* <!-- Carousel wrapper --> */}
-            <div className="relative h-52 md:h-64 xl:h-[571px] max-w-screen-full overflow-hidden">
+            <div className="relative h-52 md:h-80 xl:max-h-[591px] min-w-screen-full overflow-hidden">
                 {/* <!-- Item 1 -->*/}
             
 
                 <div className="duration-700 ease-in-out" data-carousel-item>
                   
-                    <Image  className="absolute top-1/2 left-1/2 aspect-square" 
-                      src='/image.png'
+                    <Image  className="absolute top-1/2 left-1/2 w-full aspect-square" 
+                      src={image}
                       alt='logo'
                       fill
                       priority={true}
-                      sizes='(min-width:768px) 23vw,100vw (min-width:1024px) 55vw 100vw'
                       objectFit='cover'
                       
                     />
