@@ -158,7 +158,7 @@ export async function getArticles(): Promise<ShopifyArticle[]> {
     })
     
    
-     console.log("la reponse",response)
+    
   
 
     if (!response) {
@@ -174,13 +174,13 @@ export async function getArticles(): Promise<ShopifyArticle[]> {
 
 
 export async function shopifyFetch<T>({
-  cache = 'no-store',
+  cache = 'no-cache',
   headers,
   query,
   tags,
   variables
 }: {
-  cache?: RequestCache;
+   cache?: RequestCache;
   headers?: HeadersInit;
   query: string;
   tags?: string[];
@@ -200,11 +200,13 @@ export async function shopifyFetch<T>({
         ...(query && { query }),
         ...(variables && { variables })
       }),
-      cache,
+     cache,
       ...(tags && { next: { tags } })
     });
 
     const body = await result.json();
+
+    console.log(body)
 
     if (body.errors) {
       throw body.errors[0];
@@ -409,6 +411,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
+  
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],

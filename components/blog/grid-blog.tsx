@@ -10,7 +10,7 @@ async function GridBlog() {
 
   if (!article?.length) return null;
 
-  console.log('les articles', article);
+
 
   return (
     <>
@@ -29,8 +29,8 @@ async function GridBlog() {
                 title={article.title}
                 summary={article && article.summary_html ? article.summary_html : ''}
                 src={article.image && article.image.src ? article.image.src : ''}
-                width={150}
-                height={160}
+                height={250}
+                width={250}
               />
             </Link>
           ))}

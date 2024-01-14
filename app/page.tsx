@@ -6,9 +6,8 @@ import ComingSoon from 'components/coming-soon';
 import { ThreeItemGrid } from 'components/grid/three-items';
 import Hero from 'components/hero-section';
 import Footer from 'components/layout/footer';
-
-
 import { Suspense } from 'react';
+
 
 export const runtime = 'edge';
 
